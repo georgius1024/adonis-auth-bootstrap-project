@@ -6,6 +6,8 @@ const Mail = use('Mail')
 
 module.exports = {
   generateMessage(view, data, template) {
+    data.siteUrl = process.env.PUBLIC
+    data.siteName = process.env.APP_NAME
     return view.render(template, data)
   },
   styleMessage(body)  {

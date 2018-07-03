@@ -31,7 +31,8 @@ Route
 Route
   .group(() => {
     Route.post('register', 'AuthController.register')
-    Route.post('login', 'AuthController.login')
+    Route.post('login-traditional', 'AuthController.loginTraditional')
+    Route.post('login-passwordless', 'AuthController.loginPasswordless')
     Route.post('once/:code', 'AuthController.loginOnce')
     Route.post('forgot/:email', 'AuthController.forgotPassword')
   })
@@ -41,6 +42,18 @@ Route
 Route
   .group(() => {
     Route.post('resetpass', 'AuthController.resetPassword')
+  })
+  .prefix('api/v1')
+  .middleware(['auth'])
+
+
+// Вызовы API, требующие любой авторизации пользователя/админа
+Route
+  .group(() => {
+    Route.get('user-profile', 'AuthController.showProfile')
+    Route.post('user-profile', 'AuthController.updateProfile')
+    Route.post('user-change-pass', 'AuthController.changePassword')
+
   })
   .prefix('api/v1')
   .middleware(['auth'])
@@ -56,3 +69,11 @@ Route
   })
   .prefix('api/v1')
   .middleware(['auth', 'user'])
+
+// Вызовы API, требующие авторизации админа
+Route
+  .group(() => {
+    Route.resource('user', 'UserController')
+  })
+  .prefix('api/v1')
+  .middleware(['auth', 'admin'])

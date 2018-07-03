@@ -1,4 +1,6 @@
 # Node modules
+.idea
+.editorconfig
 node_modules
 snapshots
 dump.sql
