@@ -13,7 +13,7 @@
     "adonisjs",
     "adonis-app"
   ],
-  "author": "",
+  "author": "Yurii Timofeyev",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
