@@ -2,7 +2,9 @@
 node_modules
 ss
 dump.sql
-ss.cmd
+*.cmd
+*.sh
+
 # Adonis directory for storing tmp files
 tmp
 
