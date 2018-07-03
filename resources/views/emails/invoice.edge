@@ -1,0 +1,60 @@
+@layout('email')
+
+@section('content')
+  <h3> Здравствуйте</h3>
+  <p class="lead">Только что поступил заказ на сайте podft.com</p>
+  <h4>Заказ</h4>
+  <p>Продукт: {{product.teaser || product.name}}</p>
+  @if(event)
+  <p>Дата: {{event.at}}</p>
+  @endif
+  @if(order.site)
+  <p>Сайт: {{order.site}}</p>
+  @endif
+  @if(order.notes)
+  <p>Комментарий: {{order.notes}}</p>
+  @endif
+  <h4>Контактное лицо</h4>
+  <p>Имя: {{contact.name}}</p>
+  <p>Должность: {{contact.position}}</p>
+  <p>E-mail: {{contact.email}}</p>
+  <p>Телефон: {{contact.phone}}</p>
+  <h4>Организация</h4>
+  @if(requisites.file)
+    См. прилагаемый файл: {{requisites.file}}
+  @else
+    <p>Полное наименование: {{requisites.fullName}}</p>
+    <p>Сокращенное: {{requisites.shortName}}</p>
+    <p>Юридический адрес: {{requisites.legalAddr}}</p>
+    <p>Почтовый адрес: {{requisites.postalAddr}}</p>
+    <p>ИНН: {{requisites.INN}}</p>
+    <p>КПП: {{requisites.KPP}}</p>
+    <p>БИК: {{requisites.BIC}}</p>
+    <p>Банк: {{requisites.bankName}}</p>
+    <p>K/C: {{requisites.KC}}</p>
+    <p>P/C: {{requisites.PC}}</p>
+    <p>Руководитель: {{requisites.bossName}}</p>
+    <p>Должность: {{requisites.bossPosition}}</p>
+    <p>Основание: {{requisites.bossAuth}}</p>
+    @if(requisites.code)
+      <p>Код: {{requisites.code}}</p>
+    @endif
+    @if(requisites.regCode)
+      <p>Регистрационный код: {{requisites.regCode}}</p>
+    @endif
+  @endif
+  @if(list)
+    <h4>Участники</h4>
+      @if(list.file)
+        См. прилагаемый файл: {{list.file}}
+      @else
+        <ul>
+        @each(item in list.items)
+          <li> {{ item }} </li>
+        @endeach
+        </ul>
+      @endif
+  @endif
+  <hr>
+  <p class="lead">Пожалуйста, обработайте заказ оперативно.</p>
+@endsection
