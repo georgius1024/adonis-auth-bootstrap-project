@@ -179,7 +179,7 @@ class AuthController {
 
     if (user) {
       await this.sendResetEmail (view, user)
-      return Response.genericMessage(response, 'Отправлено письмо со ссылкой для восстановления пароля')
+      return Response.genericMessage(response, 'Отправлено письмо со ссылкой для сброса пароля')
     } else {
       return Response.genericError(response, 'Неверный email!', 422)
     }
@@ -195,7 +195,8 @@ class AuthController {
       await user.save()
       return this.callFrontendActivator(`once=${code}`, response)
     } else {
-      return this.callFrontend('', response)
+      let errorText = encodeURIComponent('Эта одноразовая ссылка на сброс пароля уже была использована')
+      return this.callFrontendActivator(`error=${errorText}`, response)
     }
 
   }
