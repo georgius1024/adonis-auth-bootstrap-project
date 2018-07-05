@@ -13,7 +13,6 @@ class UserSchema extends Schema {
       table.string('verification_code', 80).notNullable()
       table.string('password', 80).notNullable()
       table.string('about', 255)
-      table.integer('no_subscriptions')
       table.timestamps()
       table.timestamp('deleted_at').nullable().defaultTo(null)
     })

@@ -1,82 +1,91 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta name="viewport" content="width=device-width" />
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Podft-site</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+<body>
+    <style>
+        @media only screen and (max-width: 600px) {
+            .inner-body {
+                width: 100% !important;
+            }
 
-<body bgcolor="#FFFFFF">
+            .footer {
+                width: 100% !important;
+            }
+        }
 
-<!-- HEADER -->
-<table class="head-wrap" bgcolor="#999999">
-	<tr>
-		<td></td>
-		<td class="header container" >
+        @media only screen and (max-width: 500px) {
+            .button {
+                width: 100% !important;
+            }
+        }
+    </style>
 
-				<div class="content">
-				<table bgcolor="#999999">
-					<tr>
-						<td><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOYAAABkCAYAAACSEkxoAAAYIUlEQVR4nO2deZgkRZXAf5FZDQjILSC4xExXd88gKqALIsoiy4oKeB9cgiRKeiCK6AIyDMLHAIKKsApooqTgeoEInyCXgAqIoCyiCEwf1TPJKcglMOhMV2buH5k1HZUdWZ3VXV3HTPy+r7/OjIzjVXW/jIgXEe+BwWAwGAwGg8FgMBgMBoNh7SGO406LUId0/euk6x/XaTkMhrlCp3NWB+Rolp2Bs6Trf77TghgM7aIXFHOr9Pc50vV376gkBkOb6GrFlK7/oUzSDdL1N1GeL5Su/5Y2i2UwzDldrZjAhzP3GwLnKvcfBW6Rrv/69olkMMw9IpsQxzFCTEmeFdL1dwIGgLcDLwPWAyJgBfCzwHN+mVPuFmCvTHIVeEXgOc9J17+HZA76d2Ao8JznWiq4wdAGdDpXmqvGpOsvAG4Etpsm6+HS9avAxcDxGeWyNflLwKeAM4HXpWmvAM4j6UENhp5nzoaygecMA7cWzF4CXGCpdP1NlfRnc/K/W7r+J6lX3MNq8091Hmow9CJzOscMPOdQ4E9NFNkKeFBRrG/m5NuWqfNPgFPS39dL1/92E+0aDF1FO4w/bwD+0UT+rYCrAALPuRl4XJMnBBZo0veRrr8D8EbgE9L1B5uU1WDoCuZcMQPPiYE9SIw9RdlTuv4J6fXBmrJL0cu+MXCpcq81KhkM3U5blksCz7kPOKzJYkuk6+8aeM5vgDMyzy5A3wuvB6hLJ4PS9Xdtsl2DoeO0bR0z8JwfMjkHLIINXCtdf5PAcxaTWF0BHgk852rgMk2ZDTVpi5sS1GDoAtq6wSDwnFOB/YB/FSyyOallN/CcY4CvAQemz84hWdNUuUtTx1ubFtRg6DBt3/kTeM61gee8jGR4uozEkJNlJYnR5zrgUun6Zen640Af8Ghaz3PAF5UyVRLFzaLrRQ2GrqYtO39agXT9rUmGr3sADwBnBZ5zqXT93wL/AZwTeM4XpOv/k2SuuZrAc7rvAxkMKW3d+dMs0vXLgA/sRtIzqjxLsn3vRuCTwI+BS6Trnw9cCNwVeE7tzOY1wAeVstnh7hpBWc7bSQjxijiOq8CySrB8eadl0jHYX95NJDuzagyPjFdGOiZQjzDnPaZ0/f117WTYFTiB6V8U5wM3pNd7AJ9Py6wCvgtcD2xC/ZLJMuBzBUR9MvAc3Ry1aYbKA8cRx+WZlo9h6eh45RtT6u0vH4sQblitTlnDFUJMWLb9xziKlowuG79OV+9gf3k/Ae+eqVwIcd1IZeyqZooMlct/C6th7egepb7ST4bHxg5qtumh8sB7ieN36sUSNwxXxn5esJ5Z/W1m8h1MR6d6zKuneR4C+6SW11yk6z8IHJX+qEwARwMXAZcD7yPpJbcEvgAsAn5RQM6HAFkgXxGOC8Nw85kWtmz7IWC1YpblvE0s2747DMPcf6g4jvvCanV34NqhcvnKkUrl/VPqFeLgarV68Ezl6ltnnW1JN38URVVKAGFZ18+kbcuyPj6xatV+OXKVgUKKySz/NjP5DmZCNxz7OijwnFsaZZCuvwRYSKLETwD3kfSOFwEvAt8B7gE+DrwyfT5CopQ9j2VZS6MGSpklrIbvGyoPzPk/z3SU5bwpe5bDanhHJ2TpNTo9x7wg8JzLG2WQrn8acCjwwcBzrtA8PyK93Al4Etgr8JzXS9c/HPg2sG5rRW4vQ+UBP6xWt5o+Zz1htfqewf7yvqPjlWvnQq4i2KXSW8Nq/RR/dLwy2iFxeopOKuajgedkh6Wrka7/MeDLwEOB52iHmNL1F1F/wqQPuF26/hcCzzlHuv51wJ3AvNaJ3V6iKNJt1i+EEOIkoGOKKSyxi3pv2fbznZKl1+ikYm4sXT9Q7mOSoXUfsHWa9mjgOVrXIekJlBOVpJXAM8AjwNel668XeM4ZwHzp+neSbGzvKQbn9+8SRdH6My0fR9FOrZSneQHYQb0VYBSzIJ2cY25Icoi69iOBf2NSKQEO0BVMlfIekk0Inwk8RwSes17gOdsANcvd6TW3l4Hn7IZ+V1BXY5dKCxs/tx+wbCvvzCpRFL2s9VIVJ4qindV7y7b/3ClZJol1G1qKl55l+aJ0eo7ZiD8FnvO7bKJ0/RNJespzA885SVPuWOX6LOn6dwSec3vgObtJ1x8DZm4qbwGWbb8ghPhXHEUbRVHUcP5rWVbugW8hRDhSqewwVB54H0RFLZKN5HpeCLEyjqKNoyhaZ7b1pWyUub+/SKGh8sARgBtF0WviKNoAYGLVqtz8E6tW7V2W82IAYVkvWZZYBlwyUql8NZt3pFKpm68P9pf3i8Lwmry6K8HyjmxO6aRiTqDfM/vy9PcS6frzSNY430NyrnOAZE754xylhMTtiMr10vVflW7hezPwt9kKPhtKpdIxD44MX7xgYPCKKIqmLGkUxbLtZwBGKmNXluW8WctlWdaRw2Ojly0cHLopWrVq71lXCERhWPdiieP4/xrlH5jfXxZwe1itbt0oXyPiKFo/jNgBOHtwfv9xCPYfHR/vudFSJxVzr2yPKF3/ZODU9HaKBTZlReA52rW4dHveppnkDUg2HLwb6uc8vU3czPnWtjMwb/78rIfx6sTEjQ3yb0ocPxDFcat6a6Io2kIIcftgf/nVvWYN7pRiPqMbplLszOYXswnS9Y8ETgZelVPmXemWv7xe1tBi7FJpl+rERF1aJVie68XQsqxfh2HYMqWsEcdxScBNtG7zSFvolGKen02Qrr8F08//JgBLuv6PgW2AQZINBUXwgV2mzWVoFXuqN3bJfjIv41B/eSgMwx3nSpAoDLdbMDC41/DY6K/nqo1W0ynFPEeTdnqBcn1olLoge8ywnGEGCCFk5l7nu6n27OS5l4hFQM8oZieWS+7KccycDYdg6GHCMHxdfYqo5OWN4jg3zIUQIiz19V1m2/YjeXls23681Ff6iRAi9yRRHEU9ZV/ohGJO6RlTz3ZZo42hh4njuG6juBDi93l5hag/P6tS6uv70fDY6AGN1kAt235geGzsoFJfacryiCJPT/kabrdirkj99WSZcsTJ0NvEmR1LURTlKiaI3CmVsEThTe+NlmOiKMpV/m6k3Yp5cU66mf+tQQzMm/+GbNpIZUxnhZ+emPydBRmiKC7qS6rrabdifjmbIF3/w5A/lDH0HqW+vrqthJZlrTEK0y7aqZh3B56j29d5rCbN0MPEUbSvei+EeKZTsvQq7Vwu0S6HpBvMGyJdf2qQekP3IsS2dbeWlWuRNehpV4+5IvCcGZ2ol67fc8e11nbiKBqoSxAMd0iUnqVdijmb0w9Fd/YYuoQ4jjdT7wWiaDhGQ0q7FPOUWZTt6JlCQ/Nkz4GG1WqDpRKDjnbMMV8EviJdv0je+9MwCiozPsFvaD8D8/v3iaP6gy+jy8bHOiROz9IOxdyQ4tvtdmPy2FeN2SrmBFMdSBvmCNu2F1YVxTR+fmZGN7ivVNHtdXztLOr7PYkfIEP72F29EULkniox5NNtiqmz3m2mSStCCLxrFrIYZkIc11lkLUss7ZQovUy3KeZKTdpMD8+eFHjO07MRZo1D5O9JbRVxHG+TafSvc93mmkgvKOZMHDbfG3jOV2YrzBpIrmJGUbSiFQ1EUaQGEJrWz8+0iOL2ASFEyz0gdIpeUMxmv+yngL1aIMuah8hXzDiKHmhFE3Ec17VRnZi4qUCpRucody3athBi57xnvbZft9vcVy7XpDXjbvJZYGHOQey1HpEEWtIytnzZstnWP9hf3jcKJ92uCiHCseXLpv1bxLH2hQxAWA0P2X5oQSWKou3yy8fbLBwaOj6shrlR3YQl/jGdHN1Etymmbk+lrUnT8RSwIPAcY4XNIQr1/9yNTv43g2VZu6qKadlWoTm+ZVl3RmGolS2KonVXrVzZ0O1MdWJie6Dh1EUI68EisnQL3TaU1c1zirw8bgMGjVI2Jo5jrZcIy7L+3qImXqPeCCEeK1IojqLzWtR+Iy5sQxsto9t6zJc0aY16zIeBz850g/zaxOD8/s3yQiYIy2rJkkYcxxm/Ovl+flRGxit3DPaXgygM58TFpG3bfxseG71sLuqeK3pBMZeSxMaEZBfPSuAO4LxWRYBeG7Bs+yNRlOcjOm6R97j6HrmRnx8NbxNCPJA1Hs0WIUSEEDOOmNYpuk0x780m5EX7MtBcTI04znWmHVbDb81aGqZGj47CsLBijo5XRof6y3tGcXxDHEUbtkIeYVkv2ba9//DY6G2tqK+ddNUc01hTixNH8UYAg/3lwenyDpUHvlStVqf44YE0CI9tnzdUHrh0qDxwaRSGr86rJwrDHReUB7TxVnTRo0fGK01Fjx4Zr9wxtmz85aW+0uJG7iqnw7btx+xS6dw4irbtJSfPKt3WYxoU4jjfuVQUResNlQeOFPD+aYOYxPFnch9F0fphFB1aRJ4wDF9V6us7BM352mz06NmsGw6PjS0BlqhpCweHrplYtWo/Xf6+dda5eenoyH/NtL1uZI1QTOn6xwL3BZ7zq07L0krCarVhZLKwWvXaJct0ZKNHGz8/s6ObFHNi+iz1SNc/GDgb2Bb4WMsl6jAj45WrZxNizy6V2ufSIxs92rLMGcxZ0E2KmRsZuUYaeOhdwEdIjhet8W4v7VLprrBananfo0tbKkwDstGjEYy0q+01kW5SzC0Vb3g1JY1IDFTrM7PN7D1PHMeHCiEejOO46A4oINk0MFIZO2Ou5NKwsXojEL9pY9trHF1llVXYNP3ZPP29ViolJMsIpb6+dwohwulzJ1i29YwQYvu5lCtLFIZ1ilmtVu9sZ/trGu3oMR+hPS+APPP6XygWSfovrRJECPEX27YX6J7FcVyT837btvU+dYWok2Xp6MivBuf3L7Rs66qwGuZ+FiFE1S6VrqhOTHyyUZBYJX9kWZbWwBSG4Ta6dB0D8+b3Z6NHjy0bb7Uv2fts2847PZIbcGh64qds29ZuHYwpHp6h1UxZpI7jGCGaW7s2tI+BefPnW7Z9gBBiJyFYP46JiOMVMfxspDJ2pa7MUH/5UZ2i2SX7iZFKZWtdmbKcp3WyXerr+/nw2OgH6uovlxdYlvW12n0c8/jw2Kjb3Cdbe9HpXDfNMQ0FSI9nddUh8JFKZRjjxqWldOsc02BYqzGKaTB0IUYxDYYuxCimwdCFGOPPWkC6fKNLvz+vjGXby4XeEVpuGcMckl2PMhgMc4tO58xQ1mDoQoxiGgxdiFFMg6ELMYppMHQhRjENhi7EKKbB0IUYxTQYegHp+p0WwWBYq9DpnG7nj5Cur3pE/GbgOZ/NqfBM4AQlaVHgOVp3FtL1vwccoSR5QO3M3gSwZZ5fWen6TzMZWXpF4Dm5DoGl668gcUUCcDPwH7A6xuIvA8/ZP6fcUYDq+Pj8wHO0bh+l658GnKQklQPPGdfk2xf4ZZ6sCiFJUKTvBp6zul7p+tsDVwIDFAuutBw4MvCcm9LyVwBaP7AaVgIPkfwNL1dkmMmOk/2AT6e/m+WSwHMOz3soXf904Cgyrkxy+AdwYeA5X1LKbwJ8D9iXYj6jngfODjxndWCjnO+kCmyVFz8nbfdJ0Mb73Ah4QU3QDWVj4D7l3mkg9EGZ+1xv35m8fwC+odz3AXnKvyf14d43kK7/3py8n2FSKQEWA2rg1L0byHdkA3mzqB75HtYpZUrRE+c2sBWwSLr+T5X0u4EFFI94Ng+4Qbp+zXtCMy5Z1gUGgcuk6882pIBg5o7ScgPVStc/BTiRYkpJmu8E6frfVtJ+SvKyKirfRsCS1EVqI0rUv6yzHE3+Z5uih3lzTDUy0obS9ffIZpCuvyWQDQKzQLr+lIhS0vX3AdSANt8KPGcp8KiSlnfifbEm7QRNGsAnlOunA8/5PXC8kraedP1PoOe1mfvNpOsvzGaSrv9q4JVK0gU59c2UD6TtHEj9SwbgcZJeTf15lORtXcMC/nuWMsz2IHaVZAQwE15s8Cw7gnmWxKWM+n08zFSPix9VrvfR1PFwpo5HmBpH54vTCU5jF6q5sTt1aDexB55zoXT9c5h8q5wNvCmTbVFOnacytfc7U7leEXjOD9Lri4BT0uttpesvTBVW5c2aNv49m5C6tlTDwP0AIPCcW6XrP0vi1AvgWOA7mbKnoH9JnQZ8KJOmxmqsNhlSfq/Ac36jkf0s4Lj01pau/3amegR4Y+A5f9BVmg6THmPy5af7zh4LPGfbBuXvJOmdAebnyL9/4DlFhuYANwAHZto5gmQYCUDgOc36sNlcub4x8Jy352WUrn8ek/+H66WfcV4mW+40La3jXmDH9DYv6O+NTCr7RtL1Dww85yeZet6Skf164B157UJjq+y1yvUu6QdTyRu21g0BpesLYCclabVfmsBzTiWZX9VQh7dI138H+iGHLV3/U5m0MzP3pyrXP1Kuh6TrZ6NUH6JpA5J5SBb1C21JtLHAc47PJG1M/ed+IU8p0/LPQZ0f16aC8qTlT2umTBeg9W+k8H1gXPkpA1n/Rv8zTR2XKNd504nvUT9iOVGT52vKdUimY9DR6NjXIiYNBzZJV3wqgHT9HQBVUc8EahPsLaTrDwSeU/PEvYT6F8CXM+38Eah5i8vGn1A/5FMkw45aEJ3PUj/kVnu2P2YMSYtJDAY1TiCdU0rX34zEuFLjQqCm9OtL198z8JzfpnkPpl5hjqMFSNffMZP0z8x9EW9t6tBxJstgRTzhX1PAav9M4DmbT5epBTT8TgLP+ROJMq5Guv5+mTzTeYsvGh7+p0y+3F8rXX/LwHOeTNvcFFAddv8amNaDYe4fUDMHVMf3X1KuVwSecyKgBpFRe4CPKNfLNYYS9Z+7lOkJd1eufwj8r3K/sNaLS9f/T+oNAnVh5QLPeRa4R0k6OEfWauA5nwZUy5o6x1VlfTrwnKaiWQGnS9e/OvNzHckwUqXnwsYpNOWYeg3h5Mz915Xr7Ejk6CIVTvdmvUi53kIxhqjzn1qYM/Wf6SBYbSjZTkk/P9tA4Dm3UT9ZPyYtezT1f+TzSIYe6tD38+lvtRdeEXiOLjSAOtRdX7p+bTRwgJJes+BerqTtmcqzGZPzDUjnsE2yO7B/5ic7XF/WxeEInyGZyzb6aZl/3l4h7WzUz62O3g5Xrsc0NhQtDT0YBJ5zqnT9xUwqyLnS9c8mMSHXOE35/bb0egPp+m+m3jpYDTxHHWureEz2XLU54MeV58OB5ywDkK7/Z+D1afohJEqpGju0Yd8Dz/mZdP2XmLR0nihd/6/UW5ZrQ+OvMmnhLUnXP5JJw0iNU2k9TwC7aNKLDE3VeeW0kfk06LwVZDmsCePPXJO7rAIgXX8e9R3LUWS+F+n6mwee83SDaprx8LEIuDq9Xle6/jEk1t4NMnkKUaThW4G90uu9qf8DvlgzSgSec1vmH38xaW+TcmODNs6ifki5hHoLq9oDekBtXaosXf9c6nvW7LBC5Wome8g3UD/MmAg85xKAwHMq0vUfJYkiBomS9it5s3PY2uig1qM+EXjOLZr2lwAPaNJDYDSdF9VQpwabStffJvAcrcfwFDUkQuFwCgqN1m3bSjo6qVlc46yVM+UwGhtRDqPeZrERU+fuLlONhiofaPCsjsBzrpGu/zyTndbnMu29FHjOZUXrK6KYpzCpmCXlGuqtVgCXMdl1v436N31uDxN4zrPS9e9hsic8MJPlAiXvd6Trf0uRXR2z6+awKouoH7qqC+lZRfo+k2+4nan/LLrQ6KcxaSx7gqkWQICbdcslOVxF/Vz4Yen6T1FvAYTkpbQp9S/MuzX1bZW+bLJYwMupf7N3Orblm6i3pNcU80UmRwa7S9d/IU1Te0JB0ptuoVYYeM7dMGX72xnpxoEJko01NWqBrNSR4ZMF5D6LyeW0eZlnuv+ZXKYdIgWecyv5IfLOydyra3pq3X9vZO5PyYtMdb9mzqXu5lHbmTKHVQk8pwKM5jzOTtLVCbzaRt4ctqWk2+LUYZZFspa2TeZnK6YOQ3WjBltTdhuSF8gGmbxfpzvJ9pwbksivfp5XklFKkq2KNX6RebZFWib7nWyUyXdNAfkuYOqLE5IRTFObNoqa1XWRi5/I9k6B5wyj3/Ex3XoRgedcAazQPDpXk6ZbK5poMIdVOU+T9mLgOb/LyPMsoJuo562fqcPH2ht8tp7NdgXubSL/U4ATeE5tuNzskHYFcFbefmdm/3mKyqNtJ/CcI0nWDZsJcvxnkmlLrY73AH4TdUwAFweek7erZ7WsaQeim4Pfkv4/5WE84BkMBoPBYDAYDAaDwWAwrE38P6oGj/CmuL7UAAAAAElFTkSuQmCC"/></td>
-						<td align="right"><h6 class="collapse">PODFT.COM</h6></td>
-					</tr>
-				</table>
-				</div>
+    <table class="wrapper" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="center">
+                <table class="content" width="100%" cellpadding="0" cellspacing="0">
 
-		</td>
-		<td></td>
-	</tr>
-</table><!-- /HEADER -->
+                    <tr>
+                        <td class="header content-cell">
+                            <a href="{{ siteUrl }}">
+                                {{ siteName }}
+                            </a>
+                        </td>
+                    </tr>
 
 
-<!-- BODY -->
-<table class="body-wrap">
-	<tr>
-		<td></td>
-		<td class="container" bgcolor="#FFFFFF">
 
-			<div class="content">
-			<table>
-				<tr>
-					<td>
-            <div class="content">
-              @!section('content')
-            </div>
-					</td>
-				</tr>
-			</table>
-			</div><!-- /content -->
-
-		</td>
-		<td></td>
-	</tr>
-</table><!-- /BODY -->
-
-<!-- FOOTER -->
-<table class="footer-wrap">
-	<tr>
-		<td></td>
-		<td class="container">
-
-				<!-- content -->
-				<div class="content">
-				<table>
-				<tr>
-					<td align="center">
-						<p>
-                            <a href="http://www.podft.com">PODFT.COM</a>
-						</p>
-					</td>
-				</tr>
-			</table>
-				</div><!-- /content -->
-
-		</td>
-		<td></td>
-	</tr>
-</table><!-- /FOOTER -->
-
+                    <!-- Email Body -->
+                    <tr>
+                        <td class="body" width="100%" cellpadding="0" cellspacing="0">
+                            <table class="inner-body" align="center" width="570" cellpadding="0" cellspacing="0">
+                                <!-- Body content -->
+                                <tr>
+                                    <td class="content-cell">
+                                        @!section('content')
+                                        @if(actionUrl)
+                                            <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="center">
+                                                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td align="center">
+                                                                    <table border="0" cellpadding="0" cellspacing="0">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="{{ actionUrl }}" class="button button-blue" target="_blank">{{ actionName }}</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="footer" align="center" width="570" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td class="content-cell" align="center">
+                                        <a href="{{siteUrl}}">{{siteName}}</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

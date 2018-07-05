@@ -116,14 +116,13 @@ class AuthController {
       user.status = 'active'
       try {
         await user.save()
-        return this.callFrontendActivator(user.level < User.admin, `once=${code}`, response)
+        return this.callFrontendActivator(`once=${code}`, response)
       } catch (e) {
         console.log(e)
         return Response.genericError(response, e.message)
       }
     } else {
-
-      return this.callFrontendActivator(true, `once=${code}`, response)
+      return this.callFrontendActivator(`once=${code}`, response)
     }
   }
 
@@ -139,7 +138,7 @@ class AuthController {
 
   async updateProfile ({ auth, request, response }) {
     const user = await User.findOrFail(auth.user.id)
-    const data = request.only(['name', 'email', 'about'])
+    const data = request.only(['username', 'email', 'about'])
 
     try {
       user.merge(data)
@@ -180,7 +179,7 @@ class AuthController {
 
     if (user) {
       await this.sendResetEmail (view, user)
-      return Response.genericMessage(response, 'Отправлено письмо со ссылкой для восстановления пароля')
+      return Response.genericMessage(response, 'Отправлено письмо со ссылкой для сброса пароля')
     } else {
       return Response.genericError(response, 'Неверный email!', 422)
     }
@@ -191,18 +190,19 @@ class AuthController {
     const code = params.code
     const user = await User.findBy('verification_code', code)
     if (user) {
+      console.log(user.toJSON())
       user.status = 'reset'
       await user.save()
-      return this.callFrontendActivator(user.level < User.admin, `once=${code}`, response)
+      return this.callFrontendActivator(`once=${code}`, response)
     } else {
-      return this.callFrontend(true, response)
+      let errorText = encodeURIComponent('Эта одноразовая ссылка на сброс пароля уже была использована')
+      return this.callFrontendActivator(`error=${errorText}`, response)
     }
 
   }
 
   async resetPassword ({ auth, request, response }) {
     const user = auth.user
-
     const data = request.only(['password', 'password_confirmation'])
 
     let errors = await User.passwordValidation(data)
@@ -224,72 +224,53 @@ class AuthController {
     return _.omit(user, ['password', 'verification_code', 'updated_at'])
   }
 
-  callFrontendActivator(isPublic, endpoint, response) {
-    if (isPublic) {
-      return response.redirect(`${process.env.SITE}/${process.env.ACTIVATOR}?${endpoint}`)
-    } else {
-      return response.redirect(`${process.env.ADMIN}/#${process.env.ACTIVATOR}?${endpoint}`)
-    }
+  callFrontendActivator(endPoint, response) {
+    console.log(`redirecting to ${process.env.ACTIVATOR}?${endPoint}`)
+    return response.redirect(`${process.env.ACTIVATOR}?${endPoint}`)
   }
 
-  callFrontend(isPublic, response) {
-    return response.redirect(`${process.env.PUBLIC}`)
-  }
-
-  async unsubscribe ({ request, response}) {
-    let userId = request.params.user
-    let messageId = request.params.message
-    try {
-      const user = await User.findOrFail(userId)
-      user.no_subscriptions = 1
-      await user.save()
-      await Database.raw(`update message_recipients 
-        set delivery_status='unsubscribe', delivery_report='Пользователь отписался', updated_at=now()
-        where id='${messageId}'`)
-      return this.callFrontendActivator(true, `unsubscribe=${request.params.user}`, response)
-    } catch (error) {
-      return Response.genericError(response, error.message)
-    }
-
+  callFrontend(endPoint, response) {
+    console.log(`redirecting to ${process.env.PUBLIC}?${endPoint}`)
+    return response.redirect(`${process.env.PUBLIC}?${endPoint}`)
   }
 
   async sendWelcomeEmail (view, user) {
-    let frontend = `${process.env.PUBLIC}`
     let actionUrl = `${process.env.BACKEND}/mail/activate/${user.verification_code}`
+    let actionName = `Подтвердить регистрацию`
     let data = {
       user: this.publicProfile(user.toJSON()),
-      frontend,
+      actionName,
       actionUrl
     }
     const rawBody = MailComposer.generateMessage(view, data, 'emails.welcome')
     const styled = MailComposer.styleMessage(rawBody)
-    MailComposer.sendMessage(user.email, user.name, 'Подтверждение учетной записи', styled)
+    MailComposer.sendMessage(user.email, user.username, 'Подтверждение учетной записи', styled)
   }
 
   async sendLoginEmail (view, user) {
-    let frontend = `${process.env.PUBLIC}`
-    let actionUrl = `${process.env.BACKEND}/mail/activate/?once=${user.verification_code}`
+    let actionUrl = `${process.env.BACKEND}/mail/activate/${user.verification_code}`
+    let actionName = `Войти на сайт`
     let data = {
       user: this.publicProfile(user.toJSON()),
-      frontend,
+      actionName,
       actionUrl
     }
-    const rawBody = MailComposer.generateMessage(view, data, 'emails.welcome')
+    const rawBody = MailComposer.generateMessage(view, data, 'emails.login')
     const styled = MailComposer.styleMessage(rawBody)
-    MailComposer.sendMessage(user.email, user.name, 'Ваша ссылка для входа в приложение', styled)
+    MailComposer.sendMessage(user.email, user.username, 'Ваша ссылка для входа в приложение', styled)
   }
 
   async sendResetEmail (view, user) {
-    let frontend = `${process.env.PUBLIC}`
     let actionUrl = `${process.env.BACKEND}/mail/reset/${user.verification_code}`
+    let actionName = `Сменить пароль`
     let data = {
       user: this.publicProfile(user.toJSON()),
-      frontend,
+      actionName,
       actionUrl
     }
     const rawBody = MailComposer.generateMessage(view, data, 'emails.reset')
     const styled = MailComposer.styleMessage(rawBody)
-    MailComposer.sendMessage(user.email, user.name, 'Восстановление учетной записи', styled)
+    MailComposer.sendMessage(user.email, user.username, 'Восстановление учетной записи', styled)
   }
 
 }

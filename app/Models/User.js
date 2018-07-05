@@ -71,14 +71,6 @@ class User extends Model {
     return schema.validate(password)
   }
 
-  async onBeforeDelete () {
-    await Database
-      .table('client_users')
-      .where('user_id', this.id)
-      .whereNull('deleted_at')
-      .update('deleted_at', moment().format('YYYY-MM-DD HH:mm:ss'))
-  }
-  
   static get basic() {
     return 1
   }
