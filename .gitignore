@@ -4,7 +4,7 @@ ss
 dump.sql
 *.cmd
 *.sh
-
+.idea
 # Adonis directory for storing tmp files
 tmp
 
