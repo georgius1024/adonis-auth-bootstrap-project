@@ -5,6 +5,7 @@ const uuidv1 = require('uuid/v1');
 
 const Hash = use('Hash')
 const Database = use('Database')
+const Logger = use('Logger')
 
 const User = use('App/Models/User')
 const Response = use('App/Lib/Response')
@@ -29,6 +30,7 @@ class AuthController {
         return Response.genericError(response, 'Пожалуйста, активируйте учетную запись, перейдя по ссылке в письме!', 422)
       }
       const token = await auth.generate(user, true)
+      Logger.debug('Вход по паролю ' + user.username)
       return Response.authorized(
         response,
         this.publicProfile(user.toJSON()),
@@ -51,6 +53,7 @@ class AuthController {
     if (email) {
       const user = await User.findBy('email', email)
       if (user) {
+        Logger.debug('Запрос входа по коду ' + user.username)
         await this.sendLoginEmail(view, user)
         return Response.genericMessage(response, 'Отправлено письмо со ссылкой для входа в приложение')
       } else {
@@ -72,6 +75,7 @@ class AuthController {
       user.status = 'active'
     }
     await user.save()
+    Logger.debug('Вход по коду ' + user.username)
     const token = await auth.generate(user, true)
     return Response.authorized(
       response,
@@ -102,13 +106,48 @@ class AuthController {
       console.log(e)
       return Response.validationFailed(response, user.errors, e.message)
     }
-
+    Logger.info('Регистрация ' + user.username)
     this.sendWelcomeEmail (view, user)
     return Response.genericMessage(
       response,
       'Для завершения регистрации, пожалуйста, пройдите по ссылке, высланной на Ваш e-mail. Если письмо не пришло, посмотрите, пожалуйста, в папке "Спам".')
   }
 
+  async signIn ({ auth, request, response, view }) {
+
+    if (!Number(process.env.REGISTRATION)) {
+      return Response.genericError(response, 'Регистрация остановлена', 422)
+    }
+
+    const data = request.only(['username', 'email', 'password', 'password_confirmation', 'about'])
+    data.level = User.basic //<--- ПЕРВОНАЧАЛЬНЫЙ УРОВЕНЬ
+
+    let errors = await User.passwordValidation(data)
+    if (errors) {
+      return Response.validationFailed(response, errors, 'Проблема')
+    }
+    delete data['password_confirmation']
+    let user = new User()
+    try {
+      user.fill(data)
+      await user.save()
+      user.status = 'active'
+      await user.save()
+    } catch (e) {
+      console.log(e)
+      return Response.validationFailed(response, user.errors, e.message)
+    }
+    Logger.info('Регистрация ' + user.username)
+
+    this.sendSignInEmail (view, user)
+    const token = await auth.generate(user, true)
+    return Response.authorized(
+      response,
+      this.publicProfile(user.toJSON()),
+      token,
+      'Добро пожаловать, ' + user.username)
+  }
+  
   async mailActivate ({ params, response }) {
     const code = params.code
     const user = await User.findBy('verification_code', code)
@@ -116,6 +155,7 @@ class AuthController {
       user.status = 'active'
       try {
         await user.save()
+        Logger.debug('Активация ' + user.username)
         return this.callFrontendActivator(`once=${code}`, response)
       } catch (e) {
         console.log(e)
@@ -148,6 +188,7 @@ class AuthController {
       return Response.validationFailed(response, user.errors, e.message)
     }
     const token = await auth.generate(user, true)
+    Logger.debug('Правка профайла ' + user.username)
     return Response.authorized(
       response,
       this.publicProfile(user.toJSON()),
@@ -179,6 +220,7 @@ class AuthController {
 
     if (user) {
       await this.sendResetEmail (view, user)
+      Logger.debug('Забыт пароль ' + user.username)
       return Response.genericMessage(response, 'Отправлено письмо со ссылкой для сброса пароля')
     } else {
       return Response.genericError(response, 'Неверный email!', 422)
@@ -245,6 +287,19 @@ class AuthController {
     const rawBody = MailComposer.generateMessage(view, data, 'emails.welcome')
     const styled = MailComposer.styleMessage(rawBody)
     MailComposer.sendMessage(user.email, user.username, 'Подтверждение учетной записи', styled)
+  }
+
+  async sendSignInEmail (view, user) {
+    let actionUrl = `${process.env.PUBLIC}`
+    let actionName = `Перейти на сайт`
+    let data = {
+      user: this.publicProfile(user.toJSON()),
+      actionName,
+      actionUrl
+    }
+    const rawBody = MailComposer.generateMessage(view, data, 'emails.sign-in')
+    const styled = MailComposer.styleMessage(rawBody)
+    MailComposer.sendMessage(user.email, user.username, 'Ваша регистрация', styled)
   }
 
   async sendLoginEmail (view, user) {

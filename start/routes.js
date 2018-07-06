@@ -31,6 +31,7 @@ Route
 Route
   .group(() => {
     Route.post('register', 'AuthController.register')
+    Route.post('sign-in', 'AuthController.signIn')
     Route.post('login-traditional', 'AuthController.loginTraditional')
     Route.post('login-passwordless', 'AuthController.loginPasswordless')
     Route.post('once/:code', 'AuthController.loginOnce')

@@ -158,7 +158,8 @@ module.exports = {
     | based on HTTP headers/query string.
     |
     */
-    locale: 'en'
+    locale: 'ru',
+    fallbackLocale: 'en',
   },
 
   logger: {
@@ -187,7 +188,7 @@ module.exports = {
     console: {
       driver: 'console',
       name: 'adonis-app',
-      level: 'info'
+      level: 'debug'
     },
 
     /*

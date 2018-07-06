@@ -3,6 +3,7 @@
 const fs = use('fs')
 const juice = use('juice')
 const Mail = use('Mail')
+const Logger = use('Logger')
 
 module.exports = {
   generateMessage(view, data, template) {
@@ -15,6 +16,7 @@ module.exports = {
     return juice.inlineContent(body, css)
   },
   async sendMessage(recipientEmail, recipientName, subject, body, attachments, embeds) {
+    Logger.debug('Сообщение "' + subject + '" для ' + recipientEmail)
     return await Mail.raw('', (message) => {
       message.html(body)
       message.subject(subject)

@@ -63,8 +63,13 @@ async function uniqueEmailValidation(instance) {
   }
   const validation = await validate(instance.toJSON(), rules)
   if (validation.fails()) {
-    Logger.info(validation.messages(), 'fuckup')
-    return validation.messages() // Список ошибок в случае провала
+    let messages = [{
+      message: 'Email должен быть уникальный. Если это ваш Email, просто перелогиньтесь',
+      field: 'email',
+      validation: 'inique'
+    }]
+    Logger.info(messages, 'fuckup')
+    return messages
   } else {
     return false
   }
